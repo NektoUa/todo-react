@@ -3,9 +3,16 @@ const app = require('express')();
 
 const {
     getAllTodos
+    postOneTodo
+    editTodo
+    deleteTodo
 } = require('./APIs/todos')
 
+app.post('/todo', postOneTodo);
 app.get('/todos', getAllTodos);
+app.put('/todo/:todoId', editTodo);
+app.delete('/todo/:todoId', deleteTodo);
+
 exports.api = functions.https.onRequest(app);
 
 
