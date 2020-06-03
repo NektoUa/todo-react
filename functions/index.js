@@ -8,10 +8,16 @@ const {
     deleteTodo
 } = require('./APIs/todos')
 
+const {
+    loginUser
+} = require('./APIs/users')
+
 app.post('/todo', postOneTodo);
 app.get('/todos', getAllTodos);
 app.put('/todo/:todoId', editTodo);
 app.delete('/todo/:todoId', deleteTodo);
+
+app.post('/login', loginUser);
 
 exports.api = functions.https.onRequest(app);
 
