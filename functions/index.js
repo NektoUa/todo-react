@@ -13,7 +13,7 @@ const {
     signUpUser
 } = require('./APIs/users')
 
-app.post('/todo', postOneTodo);
+app.post('/todos', postOneTodo);
 app.get('/todos', getAllTodos);
 app.put('/todo/:todoId', editTodo);
 app.delete('/todo/:todoId', deleteTodo);

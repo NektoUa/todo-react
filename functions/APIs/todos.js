@@ -80,7 +80,7 @@ exports.deleteTodo = (request, response) => {
             return document.delete();
         })
         .then(() => {
-            response.json({ message: 'Delete successfull!' });
+            response.json({ message: 'Delete successful!' });
         })
         .catch((err) => {
             console.error(err);
