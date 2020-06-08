@@ -147,18 +147,52 @@ exports.uploadProfilePhoto = (request, response) => {
                 }
             })
             .then(() => {
-				const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media`;
-				return db.doc(`/users/${request.user.username}`).update({
-					imageUrl
-				});
-			})
-			.then(() => {
-				return response.json({ message: 'Image uploaded successfully' });
-			})
-			.catch((error) => {
-				console.error(error);
-				return response.status(500).json({ error: error.code });
-			});
-	});
-	busboy.end(request.rawBody);
+                const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media`;
+                return db.doc(`/users/${request.user.username}`).update({
+                    imageUrl
+                });
+            })
+            .then(() => {
+                return response.json({ message: 'Image uploaded successfully' });
+            })
+            .catch((error) => {
+                console.error(error);
+                return response.status(500).json({ error: error.code });
+            });
+    });
+    busboy.end(request.rawBody);
 };
+
+// 
+exports.getUserDetail = (request, response) => {
+    let userData = {};
+    db
+        .doc(`/users/${request.user.username}`)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                userData.userCredentials = doc.data();
+                return response.json(userData);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            return response.status(500).json({ error: error.code });
+        });
+}
+
+// update user details
+exports.updateUserDetails = (request, response) => {
+    let document = db.collection('users').soc(`${request.user.username}`);
+    document.update(request.body)
+        .then(() => {
+            response.json({ message: 'Updated successfully' });
+        })
+        .catch((error) => {
+            console.error(error);
+            return response.status(500).json({
+                message: "Cannot Update the value"
+            });
+        });
+}
+
