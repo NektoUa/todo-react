@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Login from './pages/login';
+import Signup from './pages/signup';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        // <MuiThemeProvider theme={theme}>
+        <Router>
+            <div>
+                <Switch>
+                    {/* <Route exact path="/" component={home} /> */}
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/signup" component={Signup} />
+                </Switch>
+            </div>
+        </Router>
+        // </MuiThemeProvider>
+    );
 }
 
-export default App;
+export default App
+
